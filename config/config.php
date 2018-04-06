@@ -6,7 +6,11 @@ define( 'WP_USE_THEMES', false);
 $_SERVER['HTTP_HOST'] = 'mhn.medialab.ufg.br';
 $_SERVER['REQUEST_URI'] = '/';
 
-include('/home/l3p/apache_sites/mhn.medialab.ufg.br/web/wp-config.php');
+define('DIR_TAINACAN','/home/Projetos/wordpress_tainacan/wordpress_tainacan/');
+// include('/home/l3p/apache_sites/mhn.medialab.ufg.br/web/wp-config.php');
+include( DIR_TAINACAN.'/wp-config.php');
+include( DIR_TAINACAN.'/wp-content/themes/tainacan/models/general/general_model.php');
+include( DIR_TAINACAN.'/wp-content/themes/tainacan/models/object/object_save_values.php');
 
 define('CATEGORY_ROOT_ID',6863);
 define('COLLECTION_ID',106);
@@ -100,3 +104,7 @@ $metadata = [
 ];
 
 define('ARRAY_METADATA', $metadata);
+
+global $Tainacan_ItemMetadata_Model;
+
+$Tainacan_ItemMetadata_Model = new ObjectSaveValuesModel;

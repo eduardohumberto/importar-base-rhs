@@ -1,6 +1,6 @@
 <?php
 
-include('config.php');
+include( dirname(__FILE__).'../config/config.php');
 
 global $wpdb;
 

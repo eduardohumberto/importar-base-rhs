@@ -1,22 +1,28 @@
 <?php
 
+define('CATEGORY_ROOT_ID',112);
+define('COLLECTION_ID',33);
+define('AUTHOR',1);
+
 define( 'WP_USE_THEMES', false);
 
 //SE FOR MULTISITE ESTES PARAMETROS DEVEM SER ALTERADOS
-$_SERVER['HTTP_HOST'] = 'mhn.medialab.ufg.br';
-$_SERVER['REQUEST_URI'] = '/';
+// $_SERVER['HTTP_HOST'] = 'mhn.medialab.ufg.br';
+// $_SERVER['REQUEST_URI'] = '/';
+$_SERVER['HTTP_HOST'] = 'localhost';
+$_SERVER['REQUEST_URI'] = '/wordpress_tainacan';
 
-define('DIR_TAINACAN','/home/Projetos/wordpress_tainacan/wordpress_tainacan/');
+define('DIR_TAINACAN','/home/eduardo/Projetos/wordpress_tainacan/wordpress_tainacan');
 // include('/home/l3p/apache_sites/mhn.medialab.ufg.br/web/wp-config.php');
+
+/** DO NOT GO FURTHER THIS LINE **/
+
 include( DIR_TAINACAN.'/wp-config.php');
-include( DIR_TAINACAN.'/wp-content/themes/tainacan/models/general/general_model.php');
 include( DIR_TAINACAN.'/wp-content/themes/tainacan/models/object/object_save_values.php');
 
-define('CATEGORY_ROOT_ID',6863);
-define('COLLECTION_ID',106);
-define('AUTHOR',1);
+global $Metadata;
 
-$metadata = [
+$Metadata = [
     array(
         'name' => 'title',
         'type' => 'fixed',
@@ -103,8 +109,14 @@ $metadata = [
     )
 ];
 
-define('ARRAY_METADATA', $metadata);
-
 global $Tainacan_ItemMetadata_Model;
 
 $Tainacan_ItemMetadata_Model = new ObjectSaveValuesModel;
+
+include_once 'includes.php';
+
+global $MainClass;
+$MainClass = new Main();
+
+global $MetadataClass;
+$MetadataClass = new Metadata();

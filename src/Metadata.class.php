@@ -42,6 +42,7 @@ class Metadata {
 
     /**
      * @param  array $args
+     * @return int the metadata id
      */
     public function create_metadata_category( $args ){
         $metadata_id = $this->insert_metadata_term( $args['name'], $args['type'] );
@@ -55,10 +56,13 @@ class Metadata {
             update_term_meta( $metadata_id, 'socialdb_property_term_root', ( $taxonomy ) ? $taxonomy : '0');
 
         }
+
+        return $metadata_id;
     }
 
     /**
      * @param  array $args
+     * * @return int the metadata id
      */
     public function create_metadata_text( $args ){
         $metadata_id = $this->insert_metadata_term( $args['name'], $args['type'] );
@@ -67,5 +71,7 @@ class Metadata {
             $result[] = update_term_meta( $metadata_id, 'socialdb_property_data_widget', $args['type']);
             $result[] = update_term_meta( $metadata_id, 'socialdb_property_data_cardinality', $args['cardinality']);
         }
+
+        return $metadata_id;
     }
 }

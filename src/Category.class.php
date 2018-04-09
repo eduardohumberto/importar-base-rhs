@@ -14,8 +14,11 @@ class Category {
         }
 
         $category = wp_insert_term($name, 'socialdb_category_type', array( 'parent' => $parent ) );
-
-        if( isset( $category['term_id'] ) ):
+        if( isset( $category->error_data )){
+            add_term_meta( $category->error_data['term_exists'], 'socialdb_category_owner', get_current_user_id());
+            add_term_meta( $category->error_data['term_exists'], 'tainacan_imported', 'tainacan_imported');
+            return $category->error_data['term_exists'];
+        } else if( isset( $category['term_id'] ) ):
             add_term_meta( $category['term_id'], 'socialdb_category_owner', get_current_user_id());
             add_term_meta( $category['term_id'], 'tainacan_imported', 'tainacan_imported');
             return $category['term_id'];

@@ -24,14 +24,19 @@ class Main{
         global $Metadata;
         $fields = $Metadata;
         $columns = $this->insertMetadata( $fields );
+        $is_header = true;
 
         foreach ( $this->readFile() as $rawLine) {
             $line = str_getcsv( $rawLine,';');
             foreach ($line as $index => $metadata) {
+
+                if( $is_header ){
+                    $is_header = false;
+                    continue;
+                }
                 var_dump($metadata, $columns[$index]);
                 echo PHP_EOL;
             }
-            die;
         }
     }
 
@@ -54,7 +59,7 @@ class Main{
         $result = [];
 
         foreach( $metadata as $meta ){
-            if( !in_array( $meta['type'], [ 'fixed', 'attachments']  ) ){
+            if( !in_array( $meta['type'], [ 'fixed', 'attachment']  ) ){
 
                 if( $meta['type'] === 'category'){
                     $meta['id'] = $MetadataClass->create_metadata_category( $meta );
@@ -66,5 +71,21 @@ class Main{
         }
 
         return $result;
+    }
+
+    /**
+     * @param $rawValue the value from csv
+     * @param $columnData the data about the metadata
+     */
+    public function processItem( $rawValue, $columnData ){
+        global $ItemMetadata, $ItemClass;
+
+        $item_id = $ItemClass->create_empty_item();
+
+        if( $columnData['type'] === 'category' ){
+            $ItemMetadata->insert_category_metadata($item_id, $columnData['id'], $rawValue);
+        } else if( in_array( $columnData['type'], ['text', 'numeric', 'date', 'textarea'])){
+            $ItemMetadata->insert_text_metadata($item_id, $columnData['id'], $rawValue);
+        }
     }
 }

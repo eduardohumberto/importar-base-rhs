@@ -120,3 +120,9 @@ $MainClass = new Main();
 
 global $MetadataClass;
 $MetadataClass = new Metadata();
+
+global $ItemClass;
+$ItemClass = new Item();
+
+global $ItemMetadata;
+$ItemMetadata = new ItemMetadata();

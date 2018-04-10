@@ -1,5 +1,6 @@
 <?php
 
+include_once dirname(__FILE__). '/../src/Log.class.php';
 include_once dirname(__FILE__). '/../src/Category.class.php';
 include_once dirname(__FILE__). '/../src/Metadata.class.php';
 include_once dirname(__FILE__). '/../src/Tag.class.php';

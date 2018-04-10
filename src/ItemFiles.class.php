@@ -21,6 +21,8 @@ class ItemFiles{
      *
      * @param $item_id
      * @param $filename
+     *
+     * @return int o attachment id created
      */
     public function insert_attachment_by_path( $item_id, $filename){
         require_once(ABSPATH . "wp-admin" . '/includes/image.php');

@@ -126,3 +126,12 @@ $ItemClass = new Item();
 
 global $ItemMetadata;
 $ItemMetadata = new ItemMetadata();
+
+global $ItemFilesClass;
+$ItemFilesClass = new ItemFiles();
+
+global $TagClass;
+$TagClass = new Tag();
+
+global $LogClass;
+$LogClass = new LogTainacan();

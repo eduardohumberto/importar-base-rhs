@@ -19,17 +19,27 @@ class Item {
     /**
      * @param $ID
      * @param $title
-     * @param $description
      */
-    public function update_item( $ID, $title, $description ){
+    public function update_item_title( $ID, $title ){
         $item = array(
             'ID' => $ID,
             'post_title' => $title,
             'post_status' => 'publish',
-            'post_content' => $description,
             'post_parent' => COLLECTION_ID
         );
         wp_update_post( $item );
         wp_set_object_terms( $ID, array( CATEGORY_ROOT_ID ), 'socialdb_category_type', true);
+    }
+
+    /**
+     * @param $ID
+     * @param $description
+     */
+    public function update_item_description( $ID, $description ){
+        $item = array(
+            'ID' => $ID,
+            'post_content' => $description,
+        );
+        wp_update_post( $item );
     }
 }

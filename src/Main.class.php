@@ -14,7 +14,7 @@ class Main{
     public function __construct(){
         $this->dir_files = dirname( __FILE__ ). '/../data/';
         $this->csv_file = $this->dir_files.'base_dados_acervo_tainacan_rhs.csv';
-        $this->contents = $this->dir_files.'arquivos';
+        $this->contents = $this->dir_files.'arquivos/Renomeados';
     }
 
     /**
@@ -25,22 +25,19 @@ class Main{
         $fields = $Metadata;
         $columns = $this->insertMetadata( $fields );
         $is_header = true;
-        $LogClass->set_total_items( 224 ); // the csv qtd
+        $LogClass->set_total_items( 273 ); // the csv qtd
 
-        foreach ( $this->readFile() as $rawLine) {
-
-            $item_id = $ItemClass->create_empty_item();
-            $line = str_getcsv( $rawLine,';');
-            foreach ($line as $index => $metadata) {
-
-                if( $is_header ){
-                    $is_header = false;
-                    continue;
-                }
-
-                if( $this->processItem( $item_id, $metadata, $columns[$index] ) )
-                    $LogClass->total_items_inserted();
+        $resource = fopen( $this->csv_file, "r" );
+        while (  ( $line = fgetcsv( $resource, 0, ";") ) !== FALSE ) {
+            if( $is_header ){
+                $is_header = false;
+                continue;
             }
+            $item_id = $ItemClass->create_empty_item();
+            foreach ($line as $index => $metadata) {
+                $this->processItem( $item_id, $metadata, $columns[$index] );
+            }
+            $LogClass->total_items_inserted();
         }
     }
 
@@ -85,7 +82,7 @@ class Main{
      * @return int
      */
     public function processItem( $item_id, $rawValue, $columnData ){
-        global $ItemMetadata, $ItemClass, $ItemFilesClass, $TagClass;
+        global $ItemMetadata, $ItemClass, $ItemFilesClass, $TagClass, $LogClass;
 
         if( $columnData['type'] === 'category' ){
 
@@ -109,6 +106,7 @@ class Main{
             $ItemMetadata->insert_fixed_metadata( $item_id, 'socialdb_object_dc_type', $rawValue);
 
         } else if( $columnData['name'] === 'Nome dos arquivos' && $rawValue && !empty( trim( $rawValue ) )){
+            $LogClass->printText( 'INSERINDO ARQUIVO: '. $rawValue );
             $attachment_id = $ItemFilesClass->insert_attachment_by_path( $item_id, $this->contents . '/' .$rawValue );
             $ItemMetadata->insert_fixed_metadata( $item_id, 'socialdb_object_content', $attachment_id);
             $ItemMetadata->insert_fixed_metadata( $item_id, 'socialdb_object_from', 'internal' );
@@ -131,6 +129,7 @@ class Main{
             $TagClass->insert_tag( $item_id, explode( ',', $rawValue ) );
 
         } else if( $columnData['type'] === 'attachment' && $rawValue && !empty( trim( $rawValue ) )){
+            $LogClass->printText( 'INSERINDO ANEXO: '. $rawValue );
             $files = explode( ',', $rawValue );
             foreach ( $files as $file ) {
                 $ItemFilesClass->insert_attachment_by_url( $item_id, $file);

@@ -29,7 +29,8 @@ class ItemMetadata {
             0,
             'text',
             $index,
-            $value
+            $value,
+            false
         );
     }
 
@@ -70,7 +71,8 @@ class ItemMetadata {
             0,
             'text',
             $index,
-            $term_id
+            $term_id,
+            false
         );
     }
 

@@ -2,7 +2,7 @@
 
 Etapas para migração
 
-# 1º Alterar configuração
+## 1º Alterar configuração
 
 Dentro da pasta config alterar o arquivo config.php os seguintes parâmetros
 
@@ -22,17 +22,18 @@ define('AUTHOR',1);
 $_SERVER['HTTP_HOST'] = 'localhost';
 
 // o diretorio do ambiente a ser importado - Atenção essencial setar este parâmetro corretamente
+
 // Exemplo: $_SERVER['REQUEST_URI'] = '/tainacan';
 $_SERVER['REQUEST_URI'] = '/tainacan';
 
 // caminho fisico da instalacao do wordpress que será importado
 define('DIR_TAINACAN','/home/eduardo/Projetos/wordpress_tainacan/wordpress_tainacan');
 
-# 2º Baixar arquivos que serão importados
+## 2º Baixar arquivos que serão importados
 
 solicitar o arquivo zipado ( eduardo.humberto1992@gmail.com ) e extraí-lo dentro da pasta ./data
 
-# 3º execução
+## 3º execução
 
 executar o arquivo main.php e aguardar seu encerramento
 

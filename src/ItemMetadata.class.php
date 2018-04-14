@@ -45,6 +45,10 @@ class ItemMetadata {
         $categoryClass = new Category();
         $term_id = 0;
 
+        if( $value === '' ){
+           return;
+        }
+
         $taxonomy_id = get_term_meta( $metadata_id,'socialdb_property_term_root', true );
 
         $terms = get_terms([

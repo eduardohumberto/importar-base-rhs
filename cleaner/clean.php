@@ -26,3 +26,6 @@ $result = $wpdb->get_results($query);
 
 $query = "DELETE FROM $wpdb->terms  WHERE term_id IN ( SELECT tt.term_id FROM $wpdb->term_taxonomy tt WHERE tt.taxonomy in ('socialdb_tag_type') );";
 $result = $wpdb->get_results($query);
+
+$query = "DELETE FROM $wpdb->term_taxonomy WHERE term_id NOT IN ( SELECT term_id FROM $wpdb->terms );";
+$result = $wpdb->get_results($query);

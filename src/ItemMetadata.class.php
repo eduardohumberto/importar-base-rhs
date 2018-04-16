@@ -73,7 +73,7 @@ class ItemMetadata {
             $id,
             $metadata_id,
             0,
-            'text',
+            'term',
             $index,
             $term_id,
             false

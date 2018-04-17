@@ -17,13 +17,14 @@ define('CATEGORY_ROOT_ID', 112);
 define('COLLECTION_ID',33);
 
 // ( Não alterar ) o id do usuario que sera 'dono' das entidades criadas
+
 define('AUTHOR', 1);
 
-// ( Obrigatório ) A url do ambiente que será importado - Atenção essencial setar este parâmetro corretamente.  Exemplo: $_SERVER['HTTP_HOST'] = 'mhn.medialab.ufg.br';
+// ( Obrigatório ) A url do ambiente que será importado - Atenção essencial setar este parâmetro
 
 $_SERVER['HTTP_HOST'] = 'localhost';
 
-// o diretorio do ambiente a ser importado - Atenção essencial setar este parâmetro corretamente Exemplo: $_SERVER['REQUEST_URI'] = '/tainacan';
+// o diretorio do ambiente a ser importado - Atenção essencial setar este parâmetro
 
 $_SERVER['REQUEST_URI'] = '/tainacan';
 
